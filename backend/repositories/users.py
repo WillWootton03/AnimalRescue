@@ -1,5 +1,3 @@
-from fastapi import Depends
-from db.db import get_secure_db
 from Forms.auth import NewUser
 
 from sqlalchemy import select

@@ -12,3 +12,4 @@ class UserService:
         result = await get_user_byEmail(email, db)
 
         return result
+    
