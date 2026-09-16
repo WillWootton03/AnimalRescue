@@ -61,6 +61,7 @@ class AuthService:
     async def login(form: LoginForm, db: Session):
         result = get_user_byEmail(form.email, db)
         match = ph.verify(result.password_hash, form.password)
+        print(result, 't')
         
         if not match:
             raise HTTPException(400, 'invalid passsword')

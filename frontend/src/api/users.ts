@@ -6,6 +6,8 @@ export type User = {
     name: string | null;
     verified: boolean;
     created_at: string | null;
+    shelter_id: string | null;
+    role: string | null;
 };
 
 export interface RegisterUser {

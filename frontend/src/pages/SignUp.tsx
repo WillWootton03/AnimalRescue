@@ -23,6 +23,7 @@ export default function Signup () {
   }, [email, password, name, verify_password]);
 
     async function register() {
+      if (allFieldsValid) {
         try {
           setLoading(true);
             await request('/auth/register', {
@@ -39,7 +40,7 @@ export default function Signup () {
         } finally {
           setLoading(false);
         }
-
+      }
     }  
 
     return (
@@ -120,7 +121,11 @@ export default function Signup () {
               </div>
               {/* Login Footer */}
               <div className="flex flex-col gap-y-4"> 
-                <button className="bg-amber-800/50 hover:bg-amber-800/80 py-2 rounded-lg text-white font-medium" onClick={register}>
+                <button 
+                  className="bg-amber-800/50 hover:bg-amber-800/80 py-2 rounded-lg text-white font-medium" 
+                  disabled={allFieldsValid}
+                  onClick={register}
+                  >
                   Log In
                 </button>
                 <div className="flex gap-x-1 justify-center">

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import DescriptionCard from "../components/DescriptionCard";
 import { Search, House, User2, User } from "lucide-react";
-import { Navbar } from "../components/Navbar";
+import { LandingNavbar } from "../components/LandingNavbar";
 
 export default function Landing() {
 
@@ -9,7 +9,7 @@ export default function Landing() {
 
     return (            
         <div className="min-w-screen h-fit flex flex-col">
-            <Navbar />
+            <LandingNavbar />
             {/* Section 1 */}
             <div className="flex gap-x-5 p-15 bg-amber-700/10 items-center">
                 <div className="flex flex-2 flex-col gap-y-5 items-center px-10">

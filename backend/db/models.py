@@ -37,8 +37,8 @@ class Pet(Base):
 
     owner: Mapped["User | None"] = relationship("User", back_populates="pets")
     shelter: Mapped[Shelter] = relationship("Shelter", back_populates="pets")
-    applications: Mapped[List["Application"]] = relationship('Application', back_populates="pets", passive_deletes=True)
-    appointments: Mapped[List["Appointment"]] = relationship('Appointment', back_populates="pets", passive_deletes=True)
+    applications: Mapped[List["Application"]] = relationship('Application', back_populates="pet", passive_deletes=True)
+    appointments: Mapped[List["Appointment"]] = relationship('Appointment', back_populates="pet", passive_deletes=True)
 
     name: Mapped[str] = mapped_column(String(50))
     type: Mapped[AnimalType] = mapped_column(SQLEnum(AnimalType), default=AnimalType.DEFAULT)
@@ -58,10 +58,10 @@ class User(Base):
     password_hash: Mapped[str] = mapped_column(String)
     email: Mapped[str] = mapped_column(String)
 
-    shelter_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("shelters.id", ondelete="RESTRICT"))
+    shelter_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("shelters.id", ondelete="RESTRICT"), nullable=True, default=None)
     role: Mapped[EmployeeRole] = mapped_column(SQLEnum(EmployeeRole), default=EmployeeRole.DEFAULT)
 
-    shelter: Mapped["Shelter | None"] = relationship("Shelter", back_populates="shelter")
+    shelter: Mapped["Shelter | None"] = relationship("Shelter", back_populates="employees")
     pets: Mapped[List["Pet"]] = relationship("Pet", back_populates="owner", passive_deletes=True)
     applications: Mapped[List["Application"]] = relationship("Application", back_populates="user", passive_deletes=True)
     appointments: Mapped[List["Appointment"]] = relationship("Appointment", back_populates="user", passive_deletes=True)
@@ -106,10 +106,10 @@ class Appointment(Base):
     id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, server_default=text("gen_random_uuid()"))
 
     user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
-    user: Mapped["User"] = relationship("User", back_populates='applications', passive_deletes=True)
+    user: Mapped["User"] = relationship("User", back_populates='appointments', passive_deletes=True)
 
     pet_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pets.id", ondelete="CASCADE"))
-    pet: Mapped["Pet"] = relationship("Pet", back_populates='applications', passive_deletes=True)
+    pet: Mapped["Pet"] = relationship("Pet", back_populates='appointments', passive_deletes=True)
 
     scheduled_for: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), default=None)
 

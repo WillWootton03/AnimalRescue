@@ -24,5 +24,4 @@ async def get_user_byId(user_id: str, db: Session):
 def get_user_byEmail(email: str, db: Session):
     stmt = select(User).where(User.email == email)
     user = db.execute(stmt).scalar_one_or_none()
-
     return user

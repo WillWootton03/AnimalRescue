@@ -7,6 +7,8 @@ import Landing from "./pages/Landing";
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import type { User } from "./api/users";
+import UserDashboard from "./pages/UserDashboard";
+import ShelterDashboard from "./pages/ShelterDashboard";
 
 async function requireAuth() {
         try {
@@ -23,11 +25,12 @@ async function requireAuth() {
 export const router = createBrowserRouter([
     {path: '/', Component: Landing},
     {
-        path: '/app',
+        path: '/',
         Component: Layout,
         loader: requireAuth,
         children: [
-
+            { path: '/u_dashboard', Component: UserDashboard },
+            { path: '/s_dashboard', Component: ShelterDashboard }
         ]
     },
     { path: '/login', Component: Login },

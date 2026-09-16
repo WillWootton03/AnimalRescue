@@ -25,14 +25,14 @@ export default function Login() {
       console.log('t')
         try {
           setLoading(true);
-            await request('/auth/login', {
+            const user = await request('/auth/login', {
                 method: 'POST',
                 body: JSON.stringify({
                   email,
                   password,
                 })
             });
-            navigate('/app');
+            navigate('/u_dashboard');
         } catch (e) {
             console.error(`Something went wrong in login : ${e}`)
         } finally {
